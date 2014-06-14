@@ -1,0 +1,32 @@
+@import "addons.scss";
+
+@import "vsadmin.scss";
+
+/* This file prefixes all rules with the theme name to avoid causing conflicts with other themes. */
+/* The actual styles should be defined in vsadmin.scss */
+.vsadmin { @include addons; @include vsadmin;
+	
+}
+
+.vsadmin.v-app {
+	background: none repeat scroll 0 0 #FFF;
+}
+
+.v-caption.v-caption-subMenuItems,.v-caption.v-caption-catogirationsOfSubMenuItems
+	{
+	font-size: 23px;
+	font-weight: bolder;
+}
+.v-slot.v-slot-besideSideMenuHorizontalLayout{
+	overflow: auto;
+}
+.v-image.v-widget.closeIcon.v-image-closeIcon{
+width: 13px;
+height: 15px;
+transition: width 0.01s;
+transition: height 0.01s;
+}
+.v-image.v-widget.closeIcon.v-image-closeIcon:hover{
+	width: 17px;
+height: 17px;
+}
