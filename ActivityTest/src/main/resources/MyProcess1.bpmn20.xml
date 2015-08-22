@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="myProcess" name="My process" isExecutable="true">
+    <startEvent id="start" name="Start"></startEvent>
+    <userTask id="tdTask" name="TD Task" activiti:assignee="${assignedToTD}"></userTask>
+    <serviceTask id="servicetask1" name="Print Message" activiti:async="true" activiti:expression="${activitiServiceImpl.printMessage1()}"></serviceTask>
+    <userTask id="smTask" name="SM Task" activiti:assignee="${assignedToSM}"></userTask>
+    <userTask id="pdTask" name="PD Task" activiti:assignee="${activitiServiceImpl.assignee(proposalSno)}" activiti:candidateGroups="Project Director"></userTask>
+    <endEvent id="end" name="End"></endEvent>
+    <exclusiveGateway id="tdReviewDecision" name="TD Review Decision" default="flow4"></exclusiveGateway>
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="tdTask"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="tdTask" targetRef="tdReviewDecision"></sequenceFlow>
+    <sequenceFlow id="flow3" name="TD Rejected" sourceRef="tdReviewDecision" targetRef="smTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='rejected'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow4" name="TD Approved" sourceRef="tdReviewDecision" targetRef="servicetask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='approved'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="servicetask1" targetRef="pdTask"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="smTask" targetRef="end"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="pdTask" targetRef="end"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
+    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="tdTask" id="BPMNShape_tdTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="150.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="390.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="smTask" id="BPMNShape_smTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="400.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="pdTask" id="BPMNShape_pdTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="600.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_end">
+        <omgdc:Bounds height="35.0" width="35.0" x="635.0" y="250.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="tdReviewDecision" id="BPMNShape_tdReviewDecision">
+        <omgdc:Bounds height="40.0" width="40.0" x="310.0" y="117.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="75.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="150.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="255.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="310.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="330.0" y="157.0"></omgdi:waypoint>
+        <omgdi:waypoint x="330.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="400.0" y="267.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="39.0" width="58.0" x="340.0" y="157.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="330.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="330.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="57.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="63.0" x="340.0" y="117.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="495.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="600.0" y="57.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="505.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="635.0" y="267.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="652.0" y="85.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="250.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
