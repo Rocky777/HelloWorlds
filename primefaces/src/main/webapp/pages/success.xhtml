@@ -12,14 +12,14 @@
 		<p:growl id="growl" sticky="true" showDetail="true" />
 		<p:panel header="Welcome">
 			<h:panelGrid columns="3">
-				<h:outputText value="Username" />
+				<h:outputText value="Employee ID" />
 				<h:outputText value=":" />
-				<h:outputText value="#{loginController.user.username}" />
+				<h:outputText value="#{employeeController.employeeVo.empId}" />
 
-				<h:outputText value="Password" />
+				<h:outputText value="Employee Pwd" />
 				<h:outputText value=":" />
-				<h:outputText value="#{loginController.user.password}" />
-				<p:commandButton value="Back" action="#{loginController.back}" />
+				<h:outputText value="#{employeeController.employeeVo.empPwd}" />
+				<p:commandButton value="Back" action="#{employeeController.back}" />
 			</h:panelGrid>
 		</p:panel>
 	</h:form>

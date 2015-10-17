@@ -1,29 +1,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="/commonTemplate/commonLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-	<h:head>
-	<h:outputStylesheet library="styles" name="style.css" />
-	</h:head>
-<body>
-		<h:inputHidden value="#{loginController.init()}" />
-	<h:form>
-		<p:growl id="growl" sticky="true" showDetail="true" />
-		<p:panel>
-			<h:panelGrid columns="3">
-				<h:outputText value="Username" />
-				<h:outputText value=":" />
-				<p:inputText value="#{loginController.user.username}" />
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<ui:define name="content">
+		<h:inputHidden value="#{employeeController.init()}" />
+		<h:form>
+			<p:growl id="growl" sticky="true" showDetail="true" />
+			<p:panel>
+				<h:panelGrid columns="3">
+					<h:outputText value="Emp Id" />
+					<h:outputText value=":" />
+					<p:inputText value="#{employeeController.employeeVo.empId}"
+						required="true" requiredMessage="Emp id is mandatory" />
 
-				<h:outputText value="Password" />
-				<h:outputText value=":" />
-				<p:password value="#{loginController.user.password}" />
-
-				<p:commandButton value="Login" action="#{loginController.login}" />
-			</h:panelGrid>
-		</p:panel>
-	</h:form>
-</body>
-</html>
+					<h:outputText value="Emp Password" />
+					<h:outputText value=":" />
+					<p:password value="#{employeeController.employeeVo.empPwd}"
+						required="true" requiredMessage="Emp Password is mandatory" />
+					<p:commandButton value="Login" action="#{employeeController.login}" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
